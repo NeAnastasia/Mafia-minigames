@@ -31,6 +31,9 @@ export default function Home() {
         <Link href="/games/sudoku" className={styles.gameCard}>
           <h2>Судоку</h2>
         </Link>
+        <Link href="/games/flowfree" className={styles.gameCard}>
+          <h2>Flow free</h2>
+        </Link>
       </div>
     </div>
   );

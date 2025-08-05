@@ -1,0 +1,110 @@
+.gameContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.board {
+  display: grid;
+  gap: 2px;
+  background-color: #333;
+  border: 3px solid #333;
+  border-radius: 5px;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.dot {
+  border-radius: 50%;
+}
+
+.dotInner {
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Цвета для линий */
+.red {
+  background-color: #ff6b6b;
+}
+
+.orange {
+  background-color: #fab1a0;
+}
+
+.yellow {
+  background-color: #ffeaa7;
+}
+
+.green {
+  background-color: #55efc4;
+}
+
+.blue {
+  background-color: #74b9ff;
+}
+
+.darkblue {
+  background-color: #362ea0;
+}
+
+.purple {
+  background-color: #a29bfe;
+}
+
+.pink {
+  background-color: #f393eb;
+}
+
+.lime {
+  background-color: #7cd319;
+}
+
+.completed {
+  position: relative;
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 0 3px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+.dot {
+  position: relative;
+  z-index: 1;
+}
+
+.activePath {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 2px white;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 576px) {
+  /* .board {
+    max-width: 300px;
+    max-height: 300px;
+  } */
+  .cell {
+    width: 27px;
+    height: 27px;
+  }
+}

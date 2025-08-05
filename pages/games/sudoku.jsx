@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../../styles/SudokuGame.module.css";
-import Link from 'next/link'
-
+import Link from "next/link";
 
 const SudokuGame = () => {
   //(0 - пустая клетка)
@@ -50,7 +49,7 @@ const SudokuGame = () => {
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
 
-  // Форматирование времени в MM:SS
+  // Форматирование времени
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60)
       .toString()
@@ -158,6 +157,19 @@ const SudokuGame = () => {
     setBoard(newBoard);
   };
 
+  const handleClearAll = () => {
+    if (isSolved) return;
+
+    const newBoard = board.map((row, rowIndex) =>
+      row.map((cell, colIndex) =>
+        initialBoard[rowIndex][colIndex] !== 0 ? cell : 0
+      )
+    );
+
+    setBoard(newBoard);
+    setSelectedCell(null);
+  };
+
   return (
     <div className="container mt-5">
       <div className="container">
@@ -188,7 +200,7 @@ const SudokuGame = () => {
                 <div
                   key={`cell-${rowIndex}-${colIndex}`}
                   className={`${styles.cell} ${
-                    initialBoard[rowIndex][colIndex] !== 0 ? styles.initial : ""
+                    initialBoard[rowIndex][colIndex] !== 0 ? styles.fixed : ""
                   } ${
                     selectedCell?.row === rowIndex &&
                     selectedCell?.col === colIndex
@@ -220,11 +232,19 @@ const SudokuGame = () => {
               {num}
             </button>
           ))}
+        </div>
+        <div className="d-flex gap-2">
           <button
             className={`${styles.clearBtn} btn btn-outline-danger`}
             onClick={handleClearCell}
           >
             Очистить
+          </button>
+          <button
+            className={`${styles.clearBtn} btn btn-outline-danger`}
+            onClick={handleClearAll}
+          >
+            Очистить всё
           </button>
         </div>
       </div>

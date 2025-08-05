@@ -42,7 +42,7 @@
 
 .initial {
   background-color: #e8e8e8;
-  color: #000;
+  color: #000000;
 }
 
 .lightBox {
@@ -76,6 +76,10 @@
   font-size: 18px;
   font-weight: bold;
   color: #d9534f;
+}
+
+.fixed {
+  color:#165aa8;
 }
 
 @media (max-width: 576px) {

@@ -38,3 +38,9 @@
 .gameCard p {
   color: #666;
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+}

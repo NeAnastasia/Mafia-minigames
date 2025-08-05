@@ -50,7 +50,7 @@ const NonogramGame = () => {
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
 
-  // Форматирование времени в MM:SS
+  // Форматирование времени
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60)
       .toString()
@@ -143,7 +143,7 @@ const NonogramGame = () => {
     );
 
     if (solved) {
-      stopTimer(); // Добавьте эту строку
+      stopTimer();
     }
     setIsSolved(solved);
   };
