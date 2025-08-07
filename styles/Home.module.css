@@ -1,13 +1,16 @@
 .container {
-  min-height: 100vh;
   padding: 4rem;
   max-width: 1200px;
   margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.678);
+  border-radius: 20px;
+  margin-top: 10rem;
 }
 
 .title {
   text-align: center;
   margin-bottom: 3rem;
+  color: #fff;
 }
 
 .gameGrid {
@@ -17,13 +20,14 @@
 }
 
 .gameCard {
-  border: 1px solid #eaeaea;
+  border: 1px solid rgba(234, 234, 234, 0.651);
   border-radius: 10px;
   padding: 1.5rem;
   text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
   color: inherit;
   text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.479);
 }
 
 .gameCard:hover {
@@ -39,8 +43,16 @@
   color: #666;
 }
 
+.background_ours {
+  background-image: url("https://sun9-74.userapi.com/s/v1/if2/7eMlEdFvtbqf4VQiVrOIyeiWXFZmAT0JeIBxUtoSkGa5LLRbwbpcspBwfJKUZjm77sspTZxZOBlQKqM1BR2RpUJy.jpg?quality=95&as=32x13,48x19,72x29,108x43,160x64,240x96,360x144,480x192,540x216,640x256,720x288,1080x432,1280x512,1440x576,1920x768&from=bu&cs=1920x0");
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
 @media (max-width: 480px) {
   .container {
     padding: 1rem;
+    margin-top: 2rem;
   }
 }

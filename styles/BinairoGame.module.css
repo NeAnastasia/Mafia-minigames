@@ -1,0 +1,144 @@
+.gameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2px;
+  background-color: #333;
+  border: 3px solid #333;
+  border-radius: 5px;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: contents;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.cell:hover {
+  background-color: #f0f0f0;
+}
+
+.fixed {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+.selected {
+  background-color: #d4e6f1;
+  box-shadow: 0 0 0 3px #3498db;
+}
+
+.error {
+  background-color: #ffcccc;
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.controlBtn {
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.zeroBtn {
+  width: 80px;
+  height: 61px;
+  background-color: #ffffff;
+  border: 3px solid #333;
+}
+
+.oneBtn {
+  width: 80px;
+  height: 61px;
+  background-color: #ffffff;
+  color: white;
+  border: 3px solid #333;
+}
+
+.clearBtn {
+  width: 110px;
+  height: 61px;
+  background-color: #f8f9fa;
+  border: 3px solid #dc3545;
+  color: #dc3545;
+}
+
+.whiteCircle,
+.blackCircle {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.whiteCircle {
+  background-color: white;
+  border: 2px solid #333;
+}
+
+.blackCircle {
+  background-color: #333;
+  border: 2px solid #333;
+}
+
+/* Стили для предпросмотра при наведении */
+.cell .previewCircle {
+  position: absolute;
+  opacity: 0.4;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+}
+
+.cell .previewWhite {
+  background-color: white;
+  border: 1px solid #999;
+}
+
+.cell .previewBlack {
+  background-color: #333;
+  border: 1px solid #333;
+}
+
+@media (max-width: 576px) {
+  .cell {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .controlBtn {
+    width: 80px;
+    height: 50px;
+    font-size: 20px;
+  }
+  .whiteCircle,
+  .blackCircle {
+    width: 70%;
+    height: 70%;
+  }
+}
