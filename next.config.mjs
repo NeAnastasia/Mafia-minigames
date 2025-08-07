@@ -1,13 +1,8 @@
 /** @type {import('next').NextConfig} */
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   output: "standalone",
-  experimental: {
-    serverActions: true,
-  },
-  images: {
-    unoptimized: true, // Отключаем оптимизацию изображений для Netlify
-  },
 };
 
 export default nextConfig;
