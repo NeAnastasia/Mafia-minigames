@@ -1,13 +1,9 @@
 [build]
-  command = "next build"
+  command = "npm run build"
   publish = ".next"
+  functions = "out_functions"
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  [plugins.inputs]
+    functions_src = "out_functions"

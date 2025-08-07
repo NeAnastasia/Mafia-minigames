@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "../../styles/Header.module.css";
 import { Dropdown } from "react-bootstrap";
+import { getBaseUrl } from "@/utils/api";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,7 +15,7 @@ const Header = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch("/api/auth/session");
+        const response = await fetch(`${getBaseUrl()}/api/auth/session`);
         const data = await response.json();
         if (data && !data.error) {
           setIsLoggedIn(true);
@@ -31,7 +32,7 @@ const Header = () => {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout");
+    await fetch(`${getBaseUrl()}/api/auth/logout`);
     window.location.href = "/login";
   };
 

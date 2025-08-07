@@ -1,17 +1,12 @@
 /** @type {import('next').NextConfig} */
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-
-  rewrites: async () => [
-    {
-      source: "/api/:path*",
-      destination: "/api/:path*",
-    },
-  ],
-
+  output: "standalone",
+  experimental: {
+    serverActions: true,
+  },
   images: {
-    domains: ["api.vk.com"],
+    unoptimized: true, // Отключаем оптимизацию изображений для Netlify
   },
 };
 

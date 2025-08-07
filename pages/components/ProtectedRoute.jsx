@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children, adminOnly = false }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('/api/auth/session');
+        const response = await fetch(`${getBaseUrl()}/api/auth/session`);
         const data = await response.json();
         
         if (response.ok) {

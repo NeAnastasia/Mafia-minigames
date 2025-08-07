@@ -1,4 +1,5 @@
 import { supabase } from "@/DB/supabase";
+import { getBaseUrl } from "@/utils/api";
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
