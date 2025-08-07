@@ -6,7 +6,6 @@ import styles from "@/styles/Home.module.css";
 import HueGame from "./games/hue";
 import NonogramGame from "./games/nonogramm";
 import SudokuGame from "./games/sudoku";
-import VKAuthButton from "./components/VKAuthButton";
 import Header from "./components/Header";
 
 const geistSans = Geist({
