@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       // Удаляем невалидную сессию
       res.setHeader(
         'Set-Cookie',
-        `game_session=; Path=/; HttpOnly; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:00 GMT;`
+        `game_session=; Path=/; HttpOnly;  SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:00 GMT;`
       );
       return res.status(401).json({ error: 'Session invalid' });
     }

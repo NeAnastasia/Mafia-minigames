@@ -1,5 +1,5 @@
 import { supabase } from "@/DB/supabase";
-import { getBaseUrl } from "@/utils/api";
+import {  } from "@/utils/api";
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -32,10 +32,11 @@ export default async function handler(req, res) {
     // Создаём сессию (в реальном проекте используйте JWT)
     res.setHeader(
       'Set-Cookie',
-      `game_session=${account.id}; Path=/; HttpOnly; SameSite=Lax; Max-Age=2592000; ${
+      `game_session=${account.id}; Path=/; HttpOnly;  SameSite=Lax; Max-Age=2592000; ${
         process.env.NODE_ENV === 'production' ? 'Secure' : ''
       }`
     );
+    
 
     // Возвращаем данные пользователя (без пароля)
     const { password: _, ...userData } = account;

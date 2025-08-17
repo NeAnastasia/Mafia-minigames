@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "../../styles/Header.module.css";
-import { Dropdown } from "react-bootstrap";
 import { getBaseUrl } from "@/utils/api";
 
 const Header = () => {
@@ -43,13 +42,10 @@ const Header = () => {
   return (
     <header className="bg-light navbar-dark">
       <nav className="navbar navbar-expand-lg container">
-        {/* Логотип и бренд */}
         <Link href="/" className="navbar-brand d-flex align-items-center">
           <div className={`${styles.logotip} rounded-circle p-1 me-2`}></div>
           <span className="fw-bold">Part 0.01: Mini-games</span>
         </Link>
-
-        {/* Кнопка для мобильных устройств */}
         <button
           className="navbar-toggler"
           type="button"
@@ -58,8 +54,6 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
-        {/* Основное меню */}
         <div
           className={`collapse ps-3 navbar-collapse ${
             isMenuOpen ? "show" : ""
@@ -91,8 +85,6 @@ const Header = () => {
               </>
             )}
           </ul>
-
-          {/* Элементы управления аккаунтом */}
           <div className="d-flex align-items-center">
             {isLoggedIn ? (
               <>

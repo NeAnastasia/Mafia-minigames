@@ -2,10 +2,12 @@
 import { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import styles from "../../styles/NonogramGame.module.css";
-import Link from 'next/link'
-
+import Link from "next/link";
+import Cookies from "js-cookie";
+import { getBaseUrl } from "@/utils/api";
 
 const NonogramGame = () => {
+  const GAME_NUMBER = 1;
   // (1 - закрашенная клетка, 0 - пустая)
   const puzzles = [
     // Сердечко
@@ -48,7 +50,28 @@ const NonogramGame = () => {
   const [isSolved, setIsSolved] = useState(false);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [gameUserId, setGameUserId] = useState(null);
   const timerRef = useRef(null);
+
+  // Получение game_id через API
+  useEffect(() => {
+    const fetchGameUserId = async () => {
+      try {
+        const response = await fetch(`${getBaseUrl()}/api/userInfo/get-game-id`, {
+          credentials: 'include' // Важно для отправки кук
+        });
+
+        if (!response.ok) throw new Error('Failed to fetch game ID');
+        
+        const { gameId } = await response.json();
+        setGameUserId(gameId);
+      } catch (error) {
+        console.error("Error fetching game user ID:", error);
+      }
+    };
+
+    fetchGameUserId();
+  }, []);
 
   // Форматирование времени
   const formatTime = (seconds) => {
@@ -57,6 +80,31 @@ const NonogramGame = () => {
       .padStart(2, "0");
     const secs = (seconds % 60).toString().padStart(2, "0");
     return `${mins}:${secs}`;
+  };
+
+  // Сохранение результата игры
+  const saveGameResult = async () => {
+    if (!gameUserId) {
+      console.error("Game user ID not available");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${getBaseUrl()}/api/games/save-result`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          gameId: gameUserId,
+          gameNumber: GAME_NUMBER,
+          timeInSeconds: time,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Save failed");
+      console.log("Game result saved successfully!");
+    } catch (error) {
+      console.error("Error saving game result:", error);
+    }
   };
 
   // Инициализация игры со случайной нонограммой
@@ -87,6 +135,13 @@ const NonogramGame = () => {
     clearInterval(timerRef.current);
     setIsRunning(false);
   };
+
+  // При завершении игры сохраняем результат
+  useEffect(() => {
+    if (isSolved && gameUserId) {
+      saveGameResult();
+    }
+  }, [isSolved, gameUserId]);
 
   const initializeGame = () => {
     const newGrid = Array(puzzle.length)
@@ -144,8 +199,8 @@ const NonogramGame = () => {
 
     if (solved) {
       stopTimer();
+      setIsSolved(true);
     }
-    setIsSolved(solved);
   };
 
   return (
@@ -165,6 +220,11 @@ const NonogramGame = () => {
       {isSolved && (
         <div className="alert alert-success text-center">
           Поздравляем! Вы решили нонограмму за {formatTime(time)}!
+          {!gameUserId && (
+            <p className="text-warning mt-2">
+              Результат не сохранён: не найден игровой профиль
+            </p>
+          )}
         </div>
       )}
 

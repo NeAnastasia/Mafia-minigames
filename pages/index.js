@@ -7,6 +7,8 @@ import HueGame from "./games/hue";
 import NonogramGame from "./games/nonogramm";
 import SudokuGame from "./games/sudoku";
 import Header from "./components/Header";
+import { useState, useEffect } from "react";
+import { getBaseUrl } from "@/utils/api";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +21,26 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(`${getBaseUrl()}/api/auth/session`);
+        const data = await response.json();
+        if (data && !data.error) {
+          setIsLoggedIn(true);
+          setUserData(data);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Auth check error:", error);
+      }
+    };
+
+    checkAuth();
+  }, []);
   return (
     <>
       <div className={styles.background_ours}>
@@ -26,23 +48,27 @@ export default function Home() {
           <Header />
           <div className={styles.container}>
             <h1 className={styles.title}>Мини-Игры</h1>
-            <div className={styles.gameGrid}>
-              <Link href="/games/hue" className={styles.gameCard}>
-                <h2>I Love Hue</h2>
-              </Link>
-              <Link href="/games/nonogramm" className={styles.gameCard}>
-                <h2>Нонограммы</h2>
-              </Link>
-              <Link href="/games/sudoku" className={styles.gameCard}>
-                <h2>Судоку</h2>
-              </Link>
-              <Link href="/games/flowfree" className={styles.gameCard}>
-                <h2>Flow free</h2>
-              </Link>
-              <Link href="/games/binairo" className={styles.gameCard}>
-                <h2>Binairo</h2>
-              </Link>
-            </div>
+            {isLoggedIn ? (
+              <div className={styles.gameGrid}>
+                <Link href="/games/hue" className={styles.gameCard}>
+                  <h2>I Love Hue</h2>
+                </Link>
+                <Link href="/games/nonogramm" className={styles.gameCard}>
+                  <h2>Нонограммы</h2>
+                </Link>
+                <Link href="/games/sudoku" className={styles.gameCard}>
+                  <h2>Судоку</h2>
+                </Link>
+                <Link href="/games/flowfree" className={styles.gameCard}>
+                  <h2>Flow free</h2>
+                </Link>
+                <Link href="/games/binairo" className={styles.gameCard}>
+                  <h2>Binairo</h2>
+                </Link>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

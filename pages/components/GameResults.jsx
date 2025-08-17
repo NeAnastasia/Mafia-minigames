@@ -15,7 +15,6 @@ export default function Leaderboard({ currentGameId }) {
       try {
         setLoading(true);
         
-        // Получаем топ-10 игроков
         const { data: leaderboardData, error: leaderboardError } = await supabase
           .from('game_results')
           .select(`
@@ -61,8 +60,6 @@ export default function Leaderboard({ currentGameId }) {
     };
 
     fetchResults();
-    
-    return () => clearInterval(intervalId);
   }, [currentGameId]);
 
   // Форматирование времени для отображения

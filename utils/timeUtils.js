@@ -12,6 +12,13 @@ export const intervalToMilliseconds = (interval) => {
   );
 };
 
+export const secondsToPostgresInterval = (seconds) => {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = (seconds % 60).toFixed(3);
+  return `${hours}:${minutes}:${secs}`;
+};
+
 export const formatGameTime = (ms) => {
   if (ms === 0 || ms === null || ms === undefined) return '0.000';
   

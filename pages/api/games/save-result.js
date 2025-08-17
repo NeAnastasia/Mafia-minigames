@@ -1,4 +1,5 @@
 import { supabase } from "@/DB/supabase";
+import { secondsToPostgresInterval } from "@/utils/timeUtils";
 
 const secondsToISOInterval = (seconds) => {
   const hours = Math.floor(seconds / 3600);
@@ -20,38 +21,23 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  try {
-    // 1. Получаем nickname из таблицы аккаунтов
-    const { data: account, error: accountError } = await supabase
-      .from('game_accounts')
-      .select('nickname')
-      .eq('game_id', gameId)
-      .single();
-
-    if (accountError || !account) {
-      return res.status(404).json({ error: 'Account not found' });
-    }
-
-    // 2. Форматируем время в ISO 8601 для интервала
+   try {
+    // Упрощаем: не получаем nickname каждый раз
     const gameField = `game${gameNumber}_time`;
-    const timeInterval = secondsToISOInterval(timeInSeconds);
+    const timeInterval = secondsToPostgresInterval(timeInSeconds); // Используем новую функцию
 
-    // 3. Проверяем существующую запись
-    const { data: existingResult, error: fetchError } = await supabase
+    // Проверяем существующую запись
+    const { data: existingResult } = await supabase
       .from('game_results')
-      .select('*')
+      .select('id')
       .eq('game_id', gameId)
       .single();
 
-    // 4. Обновляем или создаем запись
     if (existingResult) {
-      // Обновляем существующую запись
+      // Обновляем ТОЛЬКО время игры
       const { data, error } = await supabase
         .from('game_results')
-        .update({ 
-          [gameField]: timeInterval,
-          nickname: account.nickname
-        })
+        .update({ [gameField]: timeInterval })
         .eq('game_id', gameId)
         .select();
 
@@ -63,7 +49,6 @@ export default async function handler(req, res) {
         .from('game_results')
         .insert([{ 
           game_id: gameId,
-          nickname: account.nickname,
           [gameField]: timeInterval
         }])
         .select();
@@ -74,5 +59,5 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Save result error:', error);
     return res.status(500).json({ error: 'Internal server error' });
-  }
+ }
 }
