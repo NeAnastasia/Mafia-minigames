@@ -97,7 +97,7 @@ const Header = () => {
               </>
             ) : (
               <Link href="/login" className="btn btn-dark">
-                <span className="d-none d-sm-inline">Войти</span>
+                Войти
               </Link>
             )}
           </div>
